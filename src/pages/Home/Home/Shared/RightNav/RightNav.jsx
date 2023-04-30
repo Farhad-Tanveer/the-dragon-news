@@ -10,16 +10,41 @@ import {
 } from "react-icons/fa";
 import QZone from "../QZone/QZone";
 import bg from "../../../../../assets/bg.png";
+import { useContext } from "react";
+import { AuthContext } from "../../../../../providers/AuthProvider";
 
 const RightNav = () => {
+  const { signInWithGoogle, signInWithGithub } = useContext(AuthContext);
+
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => console.log(error));
+  };
+  const handleGithubSignIn = () => {
+    signInWithGithub()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div>
       <h4 className="mt-2">Login With</h4>
-      <Button variant="outline-primary">
+      <Button onClick={handleGoogleSignIn} variant="outline-primary">
         <FaGofore className="me-2" />
         Login with Google
       </Button>
-      <Button variant="outline-info" className="mt-2">
+      <Button
+        onClick={handleGithubSignIn}
+        variant="outline-info"
+        className="mt-2"
+      >
         <FaGithub className="me-2" />
         Login with Github
       </Button>
